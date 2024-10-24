@@ -117,7 +117,11 @@ class _TestWidgetState extends State<TestWidget> {
                             onPressed: () async {
                               _model.bleDataListy =
                                   await actions.receiveAndPlotData(
-                                widget!.deviceInfo!,
+                                BTDeviceStruct(
+                                  name: widget!.deviceName,
+                                  id: widget!.deviceId,
+                                  rssi: widget!.deviceRssi,
+                                ),
                               );
                               _model.bleDataList =
                                   _model.bleDataListy!.toList().cast<String>();
