@@ -19,12 +19,14 @@ class TestWidget extends StatefulWidget {
     required this.deviceId,
     required this.deviceRssi,
     required this.hasWriteCharacteristic,
+    required this.deviceInfo,
   });
 
   final String? deviceName;
   final String? deviceId;
   final int? deviceRssi;
   final bool? hasWriteCharacteristic;
+  final BTDeviceStruct? deviceInfo;
 
   @override
   State<TestWidget> createState() => _TestWidgetState();
@@ -115,11 +117,7 @@ class _TestWidgetState extends State<TestWidget> {
                             onPressed: () async {
                               _model.bleDataListy =
                                   await actions.receiveAndPlotData(
-                                BTDeviceStruct(
-                                  name: widget!.deviceName,
-                                  id: widget!.deviceId,
-                                  rssi: widget!.deviceRssi,
-                                ),
+                                widget!.deviceInfo!,
                               );
                               _model.bleDataList =
                                   _model.bleDataListy!.toList().cast<String>();

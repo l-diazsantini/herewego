@@ -279,6 +279,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'hasWriteCharacteristic',
               ParamType.bool,
             ),
+            deviceInfo: params.getParam(
+              'deviceInfo',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: BTDeviceStruct.fromSerializableMap,
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
