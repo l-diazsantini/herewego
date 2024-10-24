@@ -146,7 +146,7 @@ class _PowerSupplyWidgetState extends State<PowerSupplyWidget> {
                           id: widget!.deviceId,
                           rssi: _model.currentRssi,
                         ),
-                        '5',
+                        '5V',
                       );
                     },
                     child: Material(
@@ -226,7 +226,7 @@ class _PowerSupplyWidgetState extends State<PowerSupplyWidget> {
                           id: widget!.deviceId,
                           rssi: _model.currentRssi,
                         ),
-                        '-5',
+                        'Neg5V',
                       );
                     },
                     child: Material(
