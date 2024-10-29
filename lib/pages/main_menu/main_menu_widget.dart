@@ -232,7 +232,7 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
                     );
 
                     context.pushNamed(
-                      'test',
+                      'testCopy',
                       queryParameters: {
                         'deviceName': serializeParam(
                           widget!.deviceName,
