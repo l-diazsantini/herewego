@@ -250,7 +250,7 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
                           true,
                           ParamType.bool,
                         ),
-                        'deviceInfo': serializeParam(
+                        'devicee': serializeParam(
                           BTDeviceStruct(
                             name: widget!.deviceName,
                             id: widget!.deviceId,

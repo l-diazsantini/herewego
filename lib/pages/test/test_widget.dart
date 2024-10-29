@@ -4,8 +4,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,14 +21,14 @@ class TestWidget extends StatefulWidget {
     required this.deviceId,
     required this.deviceRssi,
     required this.hasWriteCharacteristic,
-    required this.deviceInfo,
+    this.devicee,
   });
 
   final String? deviceName;
   final String? deviceId;
   final int? deviceRssi;
   final bool? hasWriteCharacteristic;
-  final BTDeviceStruct? deviceInfo;
+  final BTDeviceStruct? devicee;
 
   @override
   State<TestWidget> createState() => _TestWidgetState();
@@ -41,6 +43,31 @@ class _TestWidgetState extends State<TestWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TestModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.instantTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 1000),
+        callback: (timer) async {
+          _model.bleDataListy = await actions.receiveAndPlotData(
+            widget!.devicee!,
+          );
+          _model.bleDataList = _model.bleDataListy!.toList().cast<String>();
+          safeSetState(() {});
+          _model.xValue = await actions.getXValues(
+            _model.bleDataList.toList(),
+          );
+          FFAppState().xaxis = _model.xValue!.toList().cast<double>();
+          safeSetState(() {});
+          _model.yValue = await actions.getYValues(
+            _model.bleDataList.toList(),
+          );
+          FFAppState().yaxis = _model.yValue!.toList().cast<double>();
+          safeSetState(() {});
+        },
+        startImmediately: true,
+      );
+    });
   }
 
   @override
@@ -112,56 +139,6 @@ class _TestWidgetState extends State<TestWidget> {
                     child: Stack(
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              _model.bleDataListy =
-                                  await actions.receiveAndPlotData(
-                                BTDeviceStruct(
-                                  name: widget!.deviceName,
-                                  id: widget!.deviceId,
-                                  rssi: widget!.deviceRssi,
-                                ),
-                              );
-                              _model.bleDataList =
-                                  _model.bleDataListy!.toList().cast<String>();
-                              safeSetState(() {});
-                              _model.xValue = await actions.getXValues(
-                                _model.bleDataList.toList(),
-                              );
-                              FFAppState().xaxis =
-                                  _model.xValue!.toList().cast<double>();
-                              safeSetState(() {});
-                              _model.yValue = await actions.getYValues(
-                                _model.bleDataList.toList(),
-                              );
-                              FFAppState().yaxis =
-                                  _model.yValue!.toList().cast<double>();
-                              safeSetState(() {});
-
-                              safeSetState(() {});
-                            },
-                            text: 'Button',
-                            options: FFButtonOptions(
-                              height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).primary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Montserrat',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                        ),
-                        Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Container(
                             width: 370.0,
@@ -172,7 +149,7 @@ class _TestWidgetState extends State<TestWidget> {
                                   xData: FFAppState().xaxis,
                                   yData: FFAppState().yaxis,
                                   settings: LineChartBarData(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context).success,
                                     barWidth: 2.0,
                                     isCurved: true,
                                     dotData: FlDotData(show: false),
