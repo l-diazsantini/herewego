@@ -81,7 +81,7 @@ class _DisplayReceivedDataCopyWidgetState
           padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
           child: Text(
             valueOrDefault<String>(
-              _model.pls?.length?.toString(),
+              _model.pls?.first,
               '-',
             ),
             style: FlutterFlowTheme.of(context).bodyLarge.override(

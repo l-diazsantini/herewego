@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import '/widgets/display_received_data_copy/display_received_data_copy_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'test_widget.dart' show TestWidget;
 import 'package:flutter/material.dart';
@@ -34,12 +35,18 @@ class TestModel extends FlutterFlowModel<TestWidget> {
   List<double>? xValue;
   // Stores action output result for [Custom Action - getYValues] action in test widget.
   List<double>? yValue;
+  // Model for DisplayReceivedDataCopy component.
+  late DisplayReceivedDataCopyModel displayReceivedDataCopyModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    displayReceivedDataCopyModel =
+        createModel(context, () => DisplayReceivedDataCopyModel());
+  }
 
   @override
   void dispose() {
     instantTimer?.cancel();
+    displayReceivedDataCopyModel.dispose();
   }
 }

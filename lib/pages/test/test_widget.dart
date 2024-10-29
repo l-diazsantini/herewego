@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import '/widgets/display_received_data_copy/display_received_data_copy_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -174,6 +175,14 @@ class _TestWidgetState extends State<TestWidget> {
                                 reservedSize: 40.0,
                               ),
                             ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.04, -0.91),
+                          child: wrapWithModel(
+                            model: _model.displayReceivedDataCopyModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: DisplayReceivedDataCopyWidget(),
                           ),
                         ),
                       ],
