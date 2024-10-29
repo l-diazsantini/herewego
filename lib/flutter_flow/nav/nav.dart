@@ -286,6 +286,34 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               structBuilder: BTDeviceStruct.fromSerializableMap,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'testCopy',
+          path: '/testCopy',
+          builder: (context, params) => TestCopyWidget(
+            deviceName: params.getParam(
+              'deviceName',
+              ParamType.String,
+            ),
+            deviceId: params.getParam(
+              'deviceId',
+              ParamType.String,
+            ),
+            deviceRssi: params.getParam(
+              'deviceRssi',
+              ParamType.int,
+            ),
+            hasWriteCharacteristic: params.getParam(
+              'hasWriteCharacteristic',
+              ParamType.bool,
+            ),
+            devicee: params.getParam(
+              'devicee',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: BTDeviceStruct.fromSerializableMap,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
