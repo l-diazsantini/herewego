@@ -24,9 +24,9 @@ Future<List<double>?> receiveAndPlotData(String data) async {
     } else {
       debugPrint("Data format incorrect: Expected 'x,y'");
     }
-    return null;
+    return [0, 0];
   } catch (e) {
     debugPrint("Error in receiveAndPlotData: $e");
-    return null; // Return null in case of error
+    return [0, 0]; // Return null in case of error
   }
 }
