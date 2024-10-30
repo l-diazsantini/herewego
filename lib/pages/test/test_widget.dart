@@ -52,16 +52,7 @@ class _TestWidgetState extends State<TestWidget> {
           _model.listt = await actions.receiveAndPlotData(
             _model.dataa!,
           );
-          _model.textT = _model.listt!.toList().cast<double>();
-          safeSetState(() {});
-          FFAppState().addToXaxis(valueOrDefault<double>(
-            _model.listt?.first,
-            0.0,
-          ));
-          FFAppState().addToYaxis(valueOrDefault<double>(
-            _model.listt?.last,
-            0.0,
-          ));
+          _model.textT = _model.listt!.toList().cast<String>();
           safeSetState(() {});
         },
         startImmediately: true,
@@ -187,8 +178,8 @@ class _TestWidgetState extends State<TestWidget> {
                             children: [
                               Text(
                                 valueOrDefault<String>(
-                                  _model.textT.first.toString(),
-                                  'test',
+                                  _model.textT.first,
+                                  '-',
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -199,8 +190,8 @@ class _TestWidgetState extends State<TestWidget> {
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  _model.textT.last.toString(),
-                                  'test',
+                                  _model.textT.last,
+                                  '-',
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium

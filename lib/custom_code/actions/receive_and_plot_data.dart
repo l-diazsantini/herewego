@@ -7,26 +7,30 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<double>?> receiveAndPlotData(String data) async {
+Future<List<String>> receiveAndPlotData(String data) async {
+  List<String> result = []; // Initialize an empty list to return
+
   try {
+    debugPrint("Input data: '$data'"); // Print the input data for debugging
+
     // Expecting "x,y" format and parse it
     final xyValues = data.split(',');
-    if (xyValues.length == 2) {
-      final x = double.tryParse(xyValues[0]);
-      final y = double.tryParse(xyValues[1]);
+    debugPrint("Split values: $xyValues"); // Debug the split result
 
-      // Return list if both x and y are valid doubles
-      if (x != null && y != null) {
-        return [x, y];
-      } else {
-        debugPrint("Failed to parse x or y as double");
-      }
+    if (xyValues.length == 2) {
+      final x = xyValues[0].trim(); // Trim whitespace from x
+      final y = xyValues[1].trim(); // Trim whitespace from y
+
+      // Add valid x and y values to the result list as strings
+      result.addAll([x, y]);
+      debugPrint("Successfully added values to the result: $result");
     } else {
-      debugPrint("Data format incorrect: Expected 'x,y'");
+      debugPrint("Data format incorrect: Expected 'x,y', received: '$data'");
     }
-    return [0, 0];
   } catch (e) {
     debugPrint("Error in receiveAndPlotData: $e");
-    return [0, 0]; // Return null in case of error
   }
+
+  // Return the result list (could be empty if parsing failed)
+  return result;
 }

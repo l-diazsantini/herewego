@@ -18,13 +18,13 @@ class TestModel extends FlutterFlowModel<TestWidget> {
 
   String? dataa;
 
-  List<double> textT = [];
-  void addToTextT(double item) => textT.add(item);
-  void removeFromTextT(double item) => textT.remove(item);
+  List<String> textT = [];
+  void addToTextT(String item) => textT.add(item);
+  void removeFromTextT(String item) => textT.remove(item);
   void removeAtIndexFromTextT(int index) => textT.removeAt(index);
-  void insertAtIndexInTextT(int index, double item) =>
+  void insertAtIndexInTextT(int index, String item) =>
       textT.insert(index, item);
-  void updateTextTAtIndex(int index, Function(double) updateFn) =>
+  void updateTextTAtIndex(int index, Function(String) updateFn) =>
       textT[index] = updateFn(textT[index]);
 
   ///  State fields for stateful widgets in this page.
@@ -33,7 +33,7 @@ class TestModel extends FlutterFlowModel<TestWidget> {
   // Stores action output result for [Custom Action - receiveData] action in test widget.
   String? data;
   // Stores action output result for [Custom Action - receiveAndPlotData] action in test widget.
-  List<double>? listt;
+  List<String>? listt;
 
   @override
   void initState(BuildContext context) {}
