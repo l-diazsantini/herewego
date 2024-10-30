@@ -107,7 +107,7 @@ class _TestWidgetState extends State<TestWidget> {
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Montserrat',
-                  color: Colors.white,
+                  color: FlutterFlowTheme.of(context).primary,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
                 ),
