@@ -25,11 +25,15 @@ class TestModel extends FlutterFlowModel<TestWidget> {
   void updateBleDataListAtIndex(int index, Function(double) updateFn) =>
       bleDataList[index] = updateFn(bleDataList[index]);
 
+  String? dataa;
+
   ///  State fields for stateful widgets in this page.
 
   InstantTimer? instantTimer;
+  // Stores action output result for [Custom Action - receiveData] action in test widget.
+  String? data;
   // Stores action output result for [Custom Action - receiveAndPlotData] action in test widget.
-  List<double>? bleDataListy;
+  List<double>? listt;
 
   @override
   void initState(BuildContext context) {}

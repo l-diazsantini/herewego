@@ -7,37 +7,26 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-
-Future<List<double>?> receiveAndPlotData(BTDeviceStruct deviceInfo) async {
+Future<List<double>?> receiveAndPlotData(String data) async {
   try {
-    final device = BluetoothDevice.fromId(deviceInfo.id);
-    final services = await device.discoverServices();
-    List<double> chartData = []; // Store received x and y values as doubles
+    // Expecting "x,y" format and parse it
+    final xyValues = data.split(',');
+    if (xyValues.length == 2) {
+      final x = double.tryParse(xyValues[0]);
+      final y = double.tryParse(xyValues[1]);
 
-    for (BluetoothService service in services) {
-      for (BluetoothCharacteristic characteristic in service.characteristics) {
-        if (characteristic.properties.read) {
-          final value = await characteristic.read();
-          final receivedString = String.fromCharCodes(value);
-
-          // Expecting "x,y" format and parse it
-          final xyValues = receivedString.split(',');
-          if (xyValues.length == 2) {
-            final x = double.tryParse(xyValues[0]);
-            final y = double.tryParse(xyValues[1]);
-
-            // Add valid x and y values to the chartData list
-            if (x != null && y != null) {
-              chartData.addAll([x, y]);
-            }
-          }
-        }
+      // Return list if both x and y are valid doubles
+      if (x != null && y != null) {
+        return [x, y];
+      } else {
+        debugPrint("Failed to parse x or y as double");
       }
+    } else {
+      debugPrint("Data format incorrect: Expected 'x,y'");
     }
-    return chartData; // Return the list of doubles containing x and y values
+    return null;
   } catch (e) {
-    debugPrint(e.toString());
+    debugPrint("Error in receiveAndPlotData: $e");
     return null; // Return null in case of error
   }
 }

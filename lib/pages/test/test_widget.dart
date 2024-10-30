@@ -41,17 +41,23 @@ class _TestWidgetState extends State<TestWidget> {
       _model.instantTimer = InstantTimer.periodic(
         duration: Duration(milliseconds: 1000),
         callback: (timer) async {
-          _model.bleDataListy = await actions.receiveAndPlotData(
+          _model.data = await actions.receiveData(
             widget!.devicee!,
           );
-          _model.bleDataList = _model.bleDataListy!.toList().cast<double>();
+          _model.dataa = valueOrDefault<String>(
+            _model.data,
+            '-',
+          );
           safeSetState(() {});
+          _model.listt = await actions.receiveAndPlotData(
+            _model.dataa!,
+          );
           FFAppState().addToXaxis(valueOrDefault<double>(
-            _model.bleDataList.first,
+            _model.listt?.first,
             0.0,
           ));
           FFAppState().addToYaxis(valueOrDefault<double>(
-            _model.bleDataList.last,
+            _model.listt?.last,
             0.0,
           ));
           safeSetState(() {});
