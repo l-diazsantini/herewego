@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<String>> receiveAndPlotData(String data) async {
-  List<String> result = []; // Initialize an empty list to return
+Future<List<double>?> receiveAndPlotData(String data) async {
+  List<double> result = []; // Initialize an empty list to return
 
   try {
     debugPrint("Input data: '$data'"); // Print the input data for debugging
@@ -18,12 +18,18 @@ Future<List<String>> receiveAndPlotData(String data) async {
     debugPrint("Split values: $xyValues"); // Debug the split result
 
     if (xyValues.length == 2) {
-      final x = xyValues[0].trim(); // Trim whitespace from x
-      final y = xyValues[1].trim(); // Trim whitespace from y
+      final x = double.tryParse(xyValues[0].trim());
+      final y = double.tryParse(xyValues[1].trim());
 
-      // Add valid x and y values to the result list as strings
-      result.addAll([x, y]);
-      debugPrint("Successfully added values to the result: $result");
+      debugPrint("Parsed values: x = $x, y = $y"); // Debug parsed values
+
+      // Add valid x and y values to the result list
+      if (x != null && y != null) {
+        result.addAll([x, y]);
+        debugPrint("Successfully added values to the result: $result");
+      } else {
+        debugPrint("Failed to parse x or y as double");
+      }
     } else {
       debugPrint("Data format incorrect: Expected 'x,y', received: '$data'");
     }
