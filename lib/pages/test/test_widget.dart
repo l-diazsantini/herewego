@@ -188,7 +188,7 @@ class _TestWidgetState extends State<TestWidget> {
                               Text(
                                 valueOrDefault<String>(
                                   _model.textT.first.toString(),
-                                  '-',
+                                  'test',
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -200,7 +200,7 @@ class _TestWidgetState extends State<TestWidget> {
                               Text(
                                 valueOrDefault<String>(
                                   _model.textT.last.toString(),
-                                  '-',
+                                  'test',
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
