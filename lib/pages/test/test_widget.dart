@@ -52,6 +52,8 @@ class _TestWidgetState extends State<TestWidget> {
           _model.listt = await actions.receiveAndPlotData(
             _model.dataa!,
           );
+          _model.textT = _model.listt!.toList().cast<double>();
+          safeSetState(() {});
           FFAppState().addToXaxis(valueOrDefault<double>(
             _model.listt?.first,
             0.0,
@@ -174,6 +176,40 @@ class _TestWidgetState extends State<TestWidget> {
                                 reservedSize: 40.0,
                               ),
                             ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.0, -0.92),
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              Text(
+                                valueOrDefault<String>(
+                                  _model.textT.first.toString(),
+                                  '-',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              Text(
+                                valueOrDefault<String>(
+                                  _model.textT.last.toString(),
+                                  '-',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
