@@ -263,22 +263,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'test',
           path: '/test',
           builder: (context, params) => TestWidget(
-            deviceName: params.getParam(
-              'deviceName',
-              ParamType.String,
-            ),
-            deviceId: params.getParam(
-              'deviceId',
-              ParamType.String,
-            ),
-            deviceRssi: params.getParam(
-              'deviceRssi',
-              ParamType.int,
-            ),
-            hasWriteCharacteristic: params.getParam(
-              'hasWriteCharacteristic',
-              ParamType.bool,
-            ),
             devicee: params.getParam(
               'devicee',
               ParamType.DataStruct,

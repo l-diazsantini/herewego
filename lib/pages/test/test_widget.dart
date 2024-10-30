@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
-import '/widgets/display_received_data_copy/display_received_data_copy_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,17 +17,9 @@ export 'test_model.dart';
 class TestWidget extends StatefulWidget {
   const TestWidget({
     super.key,
-    required this.deviceName,
-    required this.deviceId,
-    required this.deviceRssi,
-    required this.hasWriteCharacteristic,
     this.devicee,
   });
 
-  final String? deviceName;
-  final String? deviceId;
-  final int? deviceRssi;
-  final bool? hasWriteCharacteristic;
   final BTDeviceStruct? devicee;
 
   @override
@@ -53,17 +44,16 @@ class _TestWidgetState extends State<TestWidget> {
           _model.bleDataListy = await actions.receiveAndPlotData(
             widget!.devicee!,
           );
-          _model.bleDataList = _model.bleDataListy!.toList().cast<String>();
+          _model.bleDataList = _model.bleDataListy!.toList().cast<double>();
           safeSetState(() {});
-          _model.xValue = await actions.getXValues(
-            _model.bleDataList.toList(),
-          );
-          FFAppState().xaxis = _model.xValue!.toList().cast<double>();
-          safeSetState(() {});
-          _model.yValue = await actions.getYValues(
-            _model.bleDataList.toList(),
-          );
-          FFAppState().yaxis = _model.yValue!.toList().cast<double>();
+          FFAppState().addToXaxis(valueOrDefault<double>(
+            _model.bleDataList.first,
+            0.0,
+          ));
+          FFAppState().addToYaxis(valueOrDefault<double>(
+            _model.bleDataList.last,
+            0.0,
+          ));
           safeSetState(() {});
         },
         startImmediately: true,
@@ -175,14 +165,6 @@ class _TestWidgetState extends State<TestWidget> {
                                 reservedSize: 40.0,
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(-0.04, -0.91),
-                          child: wrapWithModel(
-                            model: _model.displayReceivedDataCopyModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: DisplayReceivedDataCopyWidget(),
                           ),
                         ),
                       ],

@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-Future<List<String>?> receiveAndPlotData(BTDeviceStruct deviceInfo) async {
+Future<List<double>?> receiveAndPlotData(BTDeviceStruct deviceInfo) async {
   try {
     final device = BluetoothDevice.fromId(deviceInfo.id);
     final services = await device.discoverServices();
-    List<String> chartData = []; // Store received (x,y) strings
+    List<double> chartData = []; // Store received x and y values as doubles
 
     for (BluetoothService service in services) {
       for (BluetoothCharacteristic characteristic in service.characteristics) {
@@ -21,12 +21,21 @@ Future<List<String>?> receiveAndPlotData(BTDeviceStruct deviceInfo) async {
           final value = await characteristic.read();
           final receivedString = String.fromCharCodes(value);
 
-          // Store the received data point
-          chartData.add(receivedString);
+          // Expecting "x,y" format and parse it
+          final xyValues = receivedString.split(',');
+          if (xyValues.length == 2) {
+            final x = double.tryParse(xyValues[0]);
+            final y = double.tryParse(xyValues[1]);
+
+            // Add valid x and y values to the chartData list
+            if (x != null && y != null) {
+              chartData.addAll([x, y]);
+            }
+          }
         }
       }
     }
-    return chartData; // Return the list of (x,y) strings
+    return chartData; // Return the list of doubles containing x and y values
   } catch (e) {
     debugPrint(e.toString());
     return null; // Return null in case of error
