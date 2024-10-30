@@ -231,7 +231,19 @@ class _MainMenuWidgetState extends State<MainMenuWidget> {
                       'Oscilloscope',
                     );
 
-                    context.pushNamed('test');
+                    context.pushNamed(
+                      'test',
+                      queryParameters: {
+                        'devicee': serializeParam(
+                          BTDeviceStruct(
+                            name: widget!.deviceName,
+                            id: widget!.deviceId,
+                            rssi: widget!.deviceRssi,
+                          ),
+                          ParamType.DataStruct,
+                        ),
+                      }.withoutNulls,
+                    );
                   },
                   child: Container(
                     width: double.infinity,
