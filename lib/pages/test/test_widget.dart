@@ -101,7 +101,10 @@ class _TestWidgetState extends State<TestWidget> {
             },
           ),
           title: Text(
-            'Page Title',
+            valueOrDefault<String>(
+              _model.dataa,
+              '-',
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Montserrat',
                   color: Colors.white,

@@ -16,15 +16,6 @@ import 'package:provider/provider.dart';
 class TestModel extends FlutterFlowModel<TestWidget> {
   ///  Local state fields for this page.
 
-  List<double> bleDataList = [];
-  void addToBleDataList(double item) => bleDataList.add(item);
-  void removeFromBleDataList(double item) => bleDataList.remove(item);
-  void removeAtIndexFromBleDataList(int index) => bleDataList.removeAt(index);
-  void insertAtIndexInBleDataList(int index, double item) =>
-      bleDataList.insert(index, item);
-  void updateBleDataListAtIndex(int index, Function(double) updateFn) =>
-      bleDataList[index] = updateFn(bleDataList[index]);
-
   String? dataa;
 
   ///  State fields for stateful widgets in this page.
